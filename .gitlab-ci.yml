@@ -1,0 +1,9 @@
+image: docker:19.03.12
+
+test:
+  stage: test
+  before_script:
+    - cd api
+    - docker build -t api_image .
+  script:
+    - docker run api_image bundle exec rails test
