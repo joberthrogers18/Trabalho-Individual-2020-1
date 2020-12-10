@@ -13,6 +13,17 @@ services:
     depends_on:
       - database
 
+  frontend_github-profile-index:
+    container_name: frontend_github-profile-index
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    command: yarn dev
+    volumes:
+      - ./client:/app
+    ports:
+      - "8080:8080"
+
   database:
     image: postgres
     volumes:
