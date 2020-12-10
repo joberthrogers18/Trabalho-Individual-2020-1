@@ -10,6 +10,7 @@ services:
       - ./api:/api
     ports:
       - "3000:3000"
+    restart: always
     depends_on:
       - database
 
@@ -19,6 +20,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     command: yarn dev
+    restart: always
     volumes:
       - ./client:/app
     ports:
@@ -26,5 +28,6 @@ services:
 
   database:
     image: postgres
+    restart: always
     volumes:
       - ./api/tmp/db:/var/lib/postgresql/data
