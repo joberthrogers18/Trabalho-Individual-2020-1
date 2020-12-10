@@ -1,4 +1,5 @@
 container_api := "api_github-profile-index"
+container_frontend := "frontend_github-profile-index"
 
 build:
 	sudo docker-compose build
@@ -14,3 +15,9 @@ migrate-db:
 
 remove-all-instances:
 	sudo docker-compose down --rmi all -v
+
+test-api:
+	sudo docker-compose run ${container_api} bundle exec rails test
+
+test-client:
+	sudo docker-compose run ${container_frontend} yarn run test:unit
