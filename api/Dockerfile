@@ -1,4 +1,4 @@
-FROM ruby:2.5.7
+FROM ruby:2.5.8
 
 RUN apt-get install -qq && apt-get install -y libpq-dev
 

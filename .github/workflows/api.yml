@@ -1,30 +1,53 @@
-name: Api process verification
+name: Api workflow
 
 on: [push, pull_request]
 
 defaults:
   run:
-    working-directory: client
+    working-directory: api
 
 jobs:
-  api_github_index_profile_pipeline:
-    name: API Workflow
+  test_github_index_profile_test:
+    name: Test Github Index Profile Test
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+        - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        uses: actions/setup-node@v1
+        uses: actions/setup-ruby@v1
         with:
-          node-version: 14
+          ruby-version: 2.5
 
-      - name: Install Node.js dependencies
-        run: yarn
+      - name: Install postgres client
+        run: sudo apt-get install libpq-dev
 
-      - name: Run Tests
-        run: yarn test:unit
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundler install
 
-      - name: Run build
-        run: yarn build
+      - name: Create database
+        run: |
+          bundler exec rails db:create RAILS_ENV=test
+          bundler exec rails db:migrate RAILS_ENV=test
+
+      - name: Run tests
+        run: bundler exec rake
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
