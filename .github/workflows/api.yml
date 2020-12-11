@@ -1,0 +1,30 @@
+name: Api process verification
+
+on: [push, pull_request]
+
+defaults:
+  run:
+    working-directory: client
+
+jobs:
+  api_github_index_profile_pipeline:
+    name: API Workflow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install Node.js dependencies
+        run: yarn
+
+      - name: Run Tests
+        run: yarn test:unit
+
+      - name: Run build
+        run: yarn build
