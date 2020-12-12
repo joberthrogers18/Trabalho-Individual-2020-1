@@ -1,4 +1,4 @@
-name: Rails Unit Tests
+name: API Workflow
 
 on: [push, pull_request]
 
@@ -7,7 +7,7 @@ defaults:
     working-directory: api
 
 jobs:
-  build:
+  api_github_index_profile:
 
     runs-on: ubuntu-latest
 
@@ -24,22 +24,33 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Ruby 2.5
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.5.x
-    - name: Build and test with Rake
-      env:
-        API_HOST_DATABASE: 127.0.0.1
-        POSTGRES_USERNAME: postgres
-        POSTGRES_PASSWORD: postgres
-        RAILS_ENV: test
-      run: |
-        sudo apt-get -yqq install libpq-dev
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        bundle exec rails db:create
-        bundle exec rails db:migrate
-        bundle exec rails test
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Set up Ruby 2.5
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+
+      - name: Build application
+        env:
+          API_HOST_DATABASE: 127.0.0.1
+          POSTGRES_USERNAME: postgres
+          POSTGRES_PASSWORD: postgres
+          RAILS_ENV: test
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+
+      - name: Test application
+        env:
+          API_HOST_DATABASE: 127.0.0.1
+          POSTGRES_USERNAME: postgres
+          POSTGRES_PASSWORD: postgres
+          RAILS_ENV: test
+        run: bundle exec rails test

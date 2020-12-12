@@ -7,7 +7,7 @@ defaults:
     working-directory: client
 
 jobs:
-  client_github_index_profile_test:
+  client_github_index_profile:
     name: Test in Github Profile Index Client
     runs-on: ubuntu-latest
 
