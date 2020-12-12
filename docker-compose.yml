@@ -12,7 +12,9 @@ services:
       - "3000:3000"
     restart: always
     environment:
-     - API_HOST_DATABASE=database
+      - API_HOST_DATABASE=database
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
     depends_on:
       - database
 
