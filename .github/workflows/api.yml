@@ -54,3 +54,12 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
         run: bundle exec rails test
+
+  codacy-analysis-cli:
+    runs-on: ubuntu-latest
+    name: Codacy Analysis CLI
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Run codacy-analysis-cli
+        uses: codacy/codacy-analysis-cli-action@master
