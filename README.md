@@ -1,5 +1,7 @@
 # Trabalho Individual - GCES - 2020/1
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9352ab41daca44de8ff6b0e7426eef8c)](https://app.codacy.com/gh/joberthrogers18/Trabalho-Individual-2020-1?utm_source=github.com&utm_medium=referral&utm_content=joberthrogers18/Trabalho-Individual-2020-1&utm_campaign=Badge_Grade_Settings)
+
 A Gestão de Configuração de Software é parte fundamental no curso de GCES, e dominar os conhecimentos de configuração de ambiente, containerização, virtualização, integração e deploy contínuo tem se tornado cada vez mais necessário para ingressar no mercado de trabalho.
 
 Para exercitar estes conhecimentos, você deverá aplicar os conceitos estudados ao longo da disciplina no produto de software contido neste repositório.
