@@ -11,6 +11,8 @@ services:
     ports:
       - "3000:3000"
     restart: always
+    environment:
+     - API_HOST_DATABASE=database
     depends_on:
       - database
 
